@@ -57,8 +57,6 @@ const Dashboard = () => {
 
   const adminProdLen = products ? products.length : 0;
 
-  console.log(outOfStock);
-
   const doughnutState = {
     labels: ['Out of Stock', 'InStock'],
     datasets: [

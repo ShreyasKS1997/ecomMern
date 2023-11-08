@@ -24,8 +24,6 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        console.log(params.row.status);
-
         return params.row.status === 'Delivered' ? 'greenColor' : 'redColor';
       },
     },
