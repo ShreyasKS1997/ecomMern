@@ -9,7 +9,7 @@
 /frontend/coverage
 
 # misc
-/backend/config/config.env
+/server/config/config.env
 /frontend/.DS_Store
 /frontend/.env.local
 /frontend/.env.development.local
