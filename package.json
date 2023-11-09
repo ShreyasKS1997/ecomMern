@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build --prefix frontend && node server/index.js",
+    "start": "npm install --prefix && npm run build --prefix frontend && node server/index.js",
     "dev": "nodemon server/index.js"
   },
   "author": "",
