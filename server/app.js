@@ -13,7 +13,7 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 
 //config
-require('dotenv').config({ path: 'server/config/config.env' });
+require('dotenv').config({ path: '/etc/secrets/config.env' });
 
 app.use(express.json());
 app.use(cookieParser());
