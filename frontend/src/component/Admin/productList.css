@@ -51,4 +51,7 @@
   .productListTable div {
     font: 300 4vw 'Roboto';
   }
+  .sidebar {
+    width: 100vw;
+  }
 }
