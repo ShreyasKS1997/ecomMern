@@ -29,7 +29,7 @@ process.on('uncaughtException', (err) => {
 });
 
 //config
-require('dotenv').config({ path: 'server/config/config.env' }); // render config env location(/etc/secrets/config.env)
+require('dotenv').config({ path: '/etc/secrets/config.env' }); // render config env location(/etc/secrets/config.env)
 
 //DB_Connect
 
