@@ -1,12 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import './LoginSignUp.css';
 import Loader from '../layout/loader/loader';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, register } from '../../actions/userAction';
+import { clearErrors, login, register } from '../../actions/userAction';
+import AlertCustom from './Alert';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import {
+  Snackbar,
+  Grow,
+  AlertProps,
+  Fade,
+  Slide,
+  SlideProps,
+  Alert,
+} from '@mui/material';
+import MuiAlert from '@mui/lab/Alert';
+import { TransitionProps } from '@mui/material/transitions';
 
 const LoginSignUp = () => {
   const dispatch = useDispatch();
@@ -33,6 +58,7 @@ const LoginSignUp = () => {
 
   const [avatar, setAvatar] = useState('/Profile.png');
   const [avatarPreview, setAvatarPreview] = useState('/Profile.png');
+  const [loginError, setLoginError] = useState(false);
 
   const registerSubmit = (e) => {
     e.preventDefault();
@@ -66,11 +92,27 @@ const LoginSignUp = () => {
   const redirect =
     searchParams.size > 0 ? searchParams.get('redirect') : 'account';
 
+  const location = useLocation();
+
+  const handleAlertClose = () => {
+    console.log('clicked');
+    setLoginError(false);
+    dispatch(clearErrors());
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/' + redirect);
     }
-  }, [isAuthenticated, navigate, redirect]);
+  }, [
+    isAuthenticated,
+    navigate,
+    redirect,
+    dispatch,
+    error,
+    location,
+    loginError,
+  ]);
 
   const registerTab = useRef();
 
@@ -99,6 +141,10 @@ const LoginSignUp = () => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
   };
+
+  function SlideTransition(props) {
+    return <Fade {...props} direction="left" />;
+  }
 
   return (
     <>

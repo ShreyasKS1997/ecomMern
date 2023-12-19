@@ -1,5 +1,7 @@
 const express = require('express');
 
+const cron = require('node-cron');
+
 const app = express();
 
 const Middleware = require('./Middleware/error');
@@ -13,7 +15,7 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 
 //config
-require('dotenv').config({ path: '/etc/secrets/config.env' });
+require('dotenv').config({ path: 'server/config/config.env' });
 
 app.use(express.json());
 app.use(cookieParser());
@@ -37,11 +39,11 @@ console.log = function () {
   console.trace();
 };*/
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+//app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
-});
+});*/
 
 // Middleware to handle errors
 app.use(Middleware);

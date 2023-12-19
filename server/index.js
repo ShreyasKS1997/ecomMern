@@ -4,6 +4,22 @@ const { v2: cloudinary } = require('cloudinary');
 
 const connectDB = require('./config/dbConnect');
 
+const cron = require('node-cron');
+
+const https = require('https');
+
+const serverStatus = async () => {
+  https.get('https://demcom.onrender.com', (res) => {
+    if (res.statusCode !== 200) {
+      console.log('Server not running');
+    }
+  });
+};
+
+cron.schedule('* 0-59/13 * * * *', function () {
+  serverStatus();
+});
+
 // uncaught exception error handler
 process.on('uncaughtException', (err) => {
   console.log(`Error: ${err.message}`);
@@ -13,7 +29,7 @@ process.on('uncaughtException', (err) => {
 });
 
 //config
-require('dotenv').config({ path: '/etc/secrets/config.env' });
+require('dotenv').config({ path: 'server/config/config.env' }); // render config env location(/etc/secrets/config.env)
 
 //DB_Connect
 

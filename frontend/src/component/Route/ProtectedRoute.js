@@ -11,7 +11,7 @@ const ProtectedRoute = () => {
       {!loading && (isAuthenticated === false || isAuthenticated === true) ? (
         isAuthenticated === false ? (
           <>
-            <Navigate to="/login"></Navigate>
+            <Navigate state={'redirected'} to="/login"></Navigate>
           </>
         ) : (
           <>

@@ -11,7 +11,7 @@ import LoginSignUp from './component/User/LoginSignUp';
 import UpdateProfile from './component/User/UpdateProfile.js';
 
 import Profile from './component/User/Profile';
-import { loadUser } from './actions/userAction';
+import { clearErrors, loadUser } from './actions/userAction';
 import ProtectedRoute from './component/Route/ProtectedRoute';
 import ProtectedRouteAdmin from './component/Route/ProtectedRouteAdmin';
 import UpdatePassword from './component/User/UpdatePassword';
@@ -42,6 +42,8 @@ import NotFound from './component/layout/NotFound/NotFound.js';
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
+
+  const { loading, error } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
