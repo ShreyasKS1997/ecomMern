@@ -1,11 +1,6 @@
-import React from 'react';
-import { ReactNavbar } from 'overlay-navbar';
-import Logo from '../logo.png';
-import { MdAccountCircle } from 'react-icons/md';
-import { MdSearch } from 'react-icons/md';
-import { MdAddShoppingCart } from 'react-icons/md';
+import {Navbar} from './Navbar.js';
 
-const options = {
+/*const options = {
   burgerColorHover: '#eb4034',
   logo: Logo,
   logoWidth: '20vmax',
@@ -42,10 +37,10 @@ const options = {
   SearchIconElement: MdSearch,
   cartIcon: 'true',
   CartIconElement: MdAddShoppingCart,
-};
+};*/
 
 const Header = () => {
-  return <ReactNavbar {...options} />;
+  return <Navbar />;
 };
 
 export default Header;

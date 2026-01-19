@@ -4,7 +4,6 @@ footer {
   color: white;
   background-color: rgb(34, 33, 33);
   padding: 2vmax;
-  margin-top: 10vmax;
 }
 
 .leftFooter {
@@ -15,20 +14,29 @@ footer {
   font-size: 1vmax;
 }
 
+
+
 .leftFooter > h4 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .leftFooter > p {
+  margin-top: 1vmax;
   text-align: center;
   font-family: 'Lucida Sans', 'lucida Sans Regular', 'Lucida Sans',
     'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
     Verdana, sans-serif;
 }
 
-.leftFooter > img {
-  width: 10vmax;
-  margin: 1vmax;
+.leftFooter > div {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftFooter > div > img {
+  width: 30px;
+  display: flex;
+  padding: 1vmax;
   cursor: pointer;
 }
 
@@ -59,4 +67,17 @@ footer {
   font-family: 'Roboto';
   font-size: 1.4vmax;
   text-decoration: underline;
+}
+
+.socialIcons {
+  display: flex;
+  flex-direction: row;
+  gap: 1vmax;
+  margin-top: 1vmax;
+}
+
+.socialIcons > img {
+  width: 20px;
+  height: 15px;
+  cursor: pointer;
 }

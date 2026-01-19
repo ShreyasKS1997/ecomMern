@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   color: white;
+  position: relative;
 }
 
 .banner > h1 {
@@ -79,10 +80,16 @@
   margin: 2vmax;
   transition: all 0.2s;
   padding-bottom: 0.5vmax;
+  box-sizing: border-box;
+  align-items: stretch;
+  justify-content: stretch;
+  border: 1px solid rgba(75, 74, 74, 0.1);
 }
 
 .productCard > img {
   width: 14vmax;
+  height: 14vmax;
+  object-fit: contain;
 }
 
 .productCard > div {

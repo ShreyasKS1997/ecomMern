@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProduct } from '../../actions/productAction';
 import Loader from '../layout/loader/loader';
 import Product from '../Home/Product';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 import Slider from '@mui/material/Slider';
 import { Typography } from '@mui/material';
@@ -32,7 +32,7 @@ const Products = () => {
   const [ratings, setRatings] = useState(0);
 
   const {
-    product,
+    products,
     loading,
     error,
     productCount,
@@ -40,7 +40,7 @@ const Products = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const keyword = useParams();
+  const keyword = useSearchParams();
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -51,26 +51,25 @@ const Products = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      getProduct(keyword.keyword, currentPage, price, category, ratings)
-    );
-  }, [dispatch, keyword, currentPage, price, category, ratings]);
+    const key = keyword[0].get('keyword');
+    if (key === "" || key === null) {
+      console.log(key);
+      dispatch(
+        getProduct("", currentPage, price, category, ratings)
+      );
+    } else {
+      console.log(key);
+      dispatch(getProduct(key, currentPage, price, category, ratings));
+    }
+  }, [dispatch, currentPage, price, category, ratings]);
 
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <div className="productsContainer">
           <MetaData title="PRODUCTS .. ECOMMERCE" />
-          <h2 className="productsHeading">Products</h2>
-
-          <div className="products">
-            {product &&
-              product.map((product) => (
-                <Product key={product._id} product={product} />
-              ))}
-          </div>
 
           <div className="filterBox">
             <Typography>Price</Typography>
@@ -111,6 +110,16 @@ const Products = () => {
             </fieldset>
           </div>
 
+          <div className="products">
+            <h2 className="productsHeading">Products</h2>
+            <div className="productsList">
+            {products &&
+              products.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
+            </div>
+          </div>
+
           {resultPerPage < filteredProductsCount && (
             <div className="paginationBox">
               <Pagination
@@ -129,7 +138,7 @@ const Products = () => {
               />
             </div>
           )}
-        </>
+        </div>
       )}
     </>
   );

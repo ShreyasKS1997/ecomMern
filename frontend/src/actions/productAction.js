@@ -29,6 +29,10 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
   CLEAR_ERRORS,
+  SEARCH_PRODUCT_REQUEST,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAIL,
+  SEARCH_PRODUCT_CLEAR,
 } from '../constants/productConstant';
 
 export const getProduct =
@@ -46,6 +50,7 @@ export const getProduct =
 
       const { data } = await axios.get(link);
 
+
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
         payload: data,
@@ -56,6 +61,36 @@ export const getProduct =
         payload: error.response.data.message,
       });
     }
+  };
+
+export const getSearchProductResult =
+  (keyword = '', currentPage = 1, price = [0, 200000], catagory, ratings = 0) =>
+  async (dispatch) => {
+    if (keyword != '') {
+    try {
+      dispatch({
+        type: SEARCH_PRODUCT_REQUEST,
+        payload: { keyword },
+      });
+
+      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      if (catagory) {
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&catagory=${catagory}&ratings[gte]=${ratings}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({
+        type: SEARCH_PRODUCT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SEARCH_PRODUCT_FAIL,
+        payload: error.response,
+      });
+    }
+  }
   };
 
 export const createProduct = (productData) => async (dispatch) => {

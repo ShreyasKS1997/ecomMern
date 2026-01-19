@@ -1,9 +1,9 @@
 import React from 'react';
 import './loader.css';
 
-const loader = () => {
+const loader = ({style = '98vh'}) => {
   return (
-    <div className="loading">
+    <div className="loading" style={{ height: style }}>
       <div></div>
     </div>
   );
