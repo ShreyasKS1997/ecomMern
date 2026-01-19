@@ -1,7 +1,7 @@
 .productDetails {
   width: 100vw;
   max-width: 100%;
-  padding: 6vmax;
+  padding: 2vmax;
   box-sizing: border-box;
   background-color: white;
   display: flex;
@@ -155,9 +155,14 @@
   font: 300 1rem 'Roboto';
 }
 
+.reviewsSection {
+  margin-bottom: 5vmax;
+}
+
 .reviews {
   display: flex;
   overflow: auto;
+  margin: 2vmax;
 }
 
 .reviewsHeading {

@@ -107,8 +107,8 @@ const ProductDetails = () => {
                   product.images.map((item, i) => (
                     <img
                       className="CarouselImage"
-                      key={item.url}
-                      src={item.url}
+                      key={item && item.url}
+                      src={item && item.url}
                       alt={`${i} Slide`}
                     />
                   ))}
@@ -161,49 +161,51 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <h3 className="reviewsHeading">REVIEWS</h3>
+          <div className="reviewsSection">
+            <h3 className="reviewsHeading">REVIEWS</h3>
 
-          <Dialog
-            aria-labelledby="simple-dialog-title"
-            open={open}
-            onClose={submitReviewToggle}
-          >
-            <DialogTitle>Submit Review</DialogTitle>
-            <DialogContent className="submitDialog">
-              <Rating
-                onChange={(e) => setRating(e.target.value)}
-                value={rating}
-                size="large"
-              />
+            <Dialog
+              aria-labelledby="simple-dialog-title"
+              open={open}
+              onClose={submitReviewToggle}
+            >
+              <DialogTitle>Submit Review</DialogTitle>
+              <DialogContent className="submitDialog">
+                <Rating
+                  onChange={(e) => setRating(e.target.value)}
+                  value={rating}
+                  size="large"
+                />
 
-              <textarea
-                className="submitDialogTextArea"
-                cols="30"
-                rows="5"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              ></textarea>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={submitReviewToggle} color="secondary">
-                Cancel
-              </Button>
-              <Button onClick={reviewSubmitHandler} color="primary">
-                Submit
-              </Button>
-            </DialogActions>
-          </Dialog>
+                <textarea
+                  className="submitDialogTextArea"
+                  cols="30"
+                  rows="5"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                ></textarea>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={submitReviewToggle} color="secondary">
+                  Cancel
+                </Button>
+                <Button onClick={reviewSubmitHandler} color="primary">
+                  Submit
+                </Button>
+              </DialogActions>
+            </Dialog>
 
-          {product.reviews && product.reviews[0] ? (
-            <div className="reviews">
-              {product.reviews &&
-                product.reviews.map((review) => (
-                  <ReviewCard key={review._id} review={review} />
-                ))}
-            </div>
-          ) : (
-            <p className="noReviews">No Reviews Yet</p>
-          )}
+            {product.reviews && product.reviews[0] ? (
+              <div className="reviews">
+                {product.reviews &&
+                  product.reviews.map((review) => (
+                    <ReviewCard key={review._id} review={review} />
+                  ))}
+              </div>
+            ) : (
+              <p className="noReviews">No Reviews Yet</p>
+            )}
+          </div>
         </>
       )}
     </>

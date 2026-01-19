@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { CgMouse } from 'react-icons/cg';
 import './Home.css';
 import Product from './Product.js';
@@ -13,7 +13,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { loading, error, product } = useSelector((state) => state.products);
+  const { loading, error, products } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProduct());
@@ -40,7 +40,7 @@ const Home = () => {
           <h2 className="homeHeading">Featured Products</h2>
 
           <div className="container" id="container">
-            {product && product.map((product) => <Product product={product} />)}
+            {products && products.map((product) => <Product product={product} />)}
           </div>
         </>
       )}

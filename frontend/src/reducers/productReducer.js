@@ -32,6 +32,10 @@ import {
   DELETE_REVIEW_FAIL,
   DELETE_REVIEW_RESET,
   CLEAR_ERRORS,
+  SEARCH_PRODUCT_REQUEST,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAIL,
+  SEARCH_PRODUCT_CLEAR
 } from '../constants/productConstant';
 
 export const productsReducer = (state = { products: [] }, action) => {
@@ -40,12 +44,12 @@ export const productsReducer = (state = { products: [] }, action) => {
     case ALL_PRODUCT_REQUEST:
       return {
         loading: true,
-        product: [],
+        products: [],
       };
     case ALL_PRODUCT_SUCCESS:
       return {
         loading: false,
-        product: action.payload.products,
+        products: action.payload.products,
         productCount: action.payload.productCount,
         resultPerPage: action.payload.resultPerPage,
         filteredProductsCount: action.payload.filteredProductsCount,
@@ -60,18 +64,63 @@ export const productsReducer = (state = { products: [] }, action) => {
     case ADMIN_PRODUCT_FAIL:
     case ALL_PRODUCT_FAIL:
       return {
+
         loading: false,
         error: action.payload,
       };
     case CLEAR_ERRORS:
       return {
-        ...state,
+
         error: null,
       };
 
     default:
       return state;
   }
+};
+
+export const searchResultReducer = (state = { searchResult: [], currentKeyword: '' }, action) => {
+  switch (action.type) {
+    case SEARCH_PRODUCT_REQUEST:
+      return {
+        loading: true,
+        searchResult: [],
+        currentKeyword: action.payload.keyword,
+      };
+      case SEARCH_PRODUCT_SUCCESS:
+        if (state.currentKeyword === '') {
+          return {
+            loading: false,
+            searchResult: [],
+            currentKeyword: state.currentKeyword,
+          };
+        } else {
+          return {
+            loading: false,
+            searchResult: action.payload.products,
+            currentKeyword: state.currentKeyword,
+          };
+        }
+      case SEARCH_PRODUCT_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+          currentKeyword: state.currentKeyword,
+        }
+      case SEARCH_PRODUCT_CLEAR:
+        return {
+          ...state,
+          searchResult: [],
+          currentKeyword: '',
+        }
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        }
+      default:
+        return state;
+    }
 };
 
 export const newProductReducer = (state = { product: {} }, action) => {
